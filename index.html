@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f1">
+  <meta name="description" content="2023–2025 H1CL 综合填空词语练习：200 个不同词语、八单元、四百道选择题。">
+  <title>H1CL 综合填空 · 词语记忆挑战</title>
+  <style>
+    :root{font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC",system-ui,sans-serif;color:#182b30;background:#f7f6f1}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh}.wrap{width:min(800px,calc(100% - 32px));margin:auto;padding:30px 0 70px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}.brand{font-weight:800;color:#174f4a;letter-spacing:.04em}.tag{font-size:13px;color:#5e716f;border:1px solid #d7e0dc;border-radius:99px;padding:7px 12px}
+    h1{font-size:clamp(30px,6vw,45px);letter-spacing:-.04em;margin:0 0 10px}h2{font-size:22px;line-height:1.5;margin:0 0 19px}.subtitle{color:#596c69;line-height:1.8;margin:0 0 26px}
+    .panel{background:#fff;border:1px solid #e0e5df;border-radius:22px;box-shadow:0 16px 45px rgba(32,58,52,.06);padding:clamp(21px,5vw,38px)}
+    .section-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.section-card{text-align:left;padding:20px;border:1.5px solid #dfe7e2;border-radius:15px;background:#fff;color:#193d38;cursor:pointer;font:inherit}.section-card:hover,.section-card:focus-visible{border-color:#28806a;background:#f3faf5}.section-card strong{display:block;font-size:19px;margin-bottom:6px}.section-card span{color:#637974;font-size:13px}.section-card.review{background:#f8f7ef}
+    .topline{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#63736f;font-size:13px;font-weight:700}.pill{background:#e8f4ef;color:#24685b;padding:7px 11px;border-radius:99px}.bar{height:7px;border-radius:99px;background:#eef1eb;margin:17px 0 30px;overflow:hidden}.bar span{display:block;height:100%;background:#24806d;transition:width .3s}
+    .context{background:#f7f8f4;border-left:3px solid #80b1a3;padding:16px 18px;border-radius:0 12px 12px 0;font-size:18px;line-height:1.85;margin:0 0 12px}.source{font-size:12px;color:#75847f;margin:0 0 22px}.choices{display:grid;gap:11px}
+    button{font:inherit}.choice{width:100%;text-align:left;display:flex;gap:15px;align-items:center;min-height:60px;padding:13px 16px;border:1.5px solid #dfe7e2;border-radius:12px;background:#fff;color:#1c3232;cursor:pointer;font-size:17px}.choice:hover:not(:disabled){border-color:#3b8d79;background:#f7fbf8}.choice:focus-visible,.primary:focus-visible,.link:focus-visible{outline:3px solid #99c5b5;outline-offset:3px}.choice:disabled{cursor:default}.letter{display:grid;place-items:center;flex:0 0 28px;height:28px;background:#f2f5f0;border-radius:8px;color:#55726b;font-size:13px;font-weight:800}.choice.correct{border-color:#2c8a6b;background:#ebf7f0}.choice.wrong{border-color:#c66d67;background:#fff1ed}.choice.correct .letter{background:#2c8a6b;color:#fff}.choice.wrong .letter{background:#c66d67;color:#fff}
+    .feedback{margin-top:23px;padding:17px 19px;background:#f3f8f3;border:1px solid #dce9df;border-radius:13px;line-height:1.65}.feedback.bad{background:#fff8f2;border-color:#f2e3d5}.feedback strong{display:block;color:#245e50;margin-bottom:5px}.feedback.bad strong{color:#9d5548}.feedback p{margin:0;color:#455b57;font-size:14px}.actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:19px}.primary{border:0;border-radius:11px;background:#176b5d;color:#fff;padding:12px 22px;min-height:45px;font-weight:750;cursor:pointer}.primary:hover{background:#105748}.link{background:transparent;color:#3d6e62;border:0;cursor:pointer;padding:10px 0}.end{text-align:center;padding:24px 4px}.big{font-size:56px;font-weight:800;color:#176b5d}.end p{color:#63736f;line-height:1.7}footer{text-align:center;margin-top:24px;color:#82928a;font-size:12px;line-height:1.7}
+    @media(max-width:560px){.wrap{padding-top:22px}header{margin-bottom:24px}.tag{display:none}.section-grid{grid-template-columns:1fr}.context{font-size:16px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header><div class="brand">综合填空 / H1CL</div><div class="tag">2023–2025 · 8 单元</div></header>
+    <h1>词语记忆挑战</h1>
+    <p class="subtitle">200 个不同词语 · 400 道四选一题 · 8 个单元，每单元 50 题。先选填空词语，再用中文回忆它的意思。答题后附拼音与英文解释。</p>
+    <section id="game" class="panel" aria-live="polite"></section>
+    <footer>根据所提供的 2023、2024、2025 年《综合填空》结集改编。填空句子经节录、简化或根据原题词语重写。</footer>
+  </main>
+  <script src="data.js"></script>
+  <script src="choice-groups.js"></script>
+  <script>
+    const game=document.getElementById('game');
+    let active=-1,position=0,score=0,chosen=null;
+    const labels='ABCD';
+    function el(tag,className,content){const node=document.createElement(tag);if(className)node.className=className;if(content!==undefined)node.textContent=content;return node;}
+    function makeQuestions(section){
+      const start=section*25;
+      return rows.slice(start,start+25).flatMap((row,j)=>{
+        const index=start+j,key=`${row.year} ${row.school}`;
+        const pool=rows.concat(extraOptions).filter(x=>x.year===row.year&&x.school===row.school);
+        const wordClass=term=>Object.entries(choiceGroups[key]).find(([,list])=>list.split(' ').includes(term))?.[0];
+        const similar=(a,b)=>(closeSets[key]||[]).some(set=>{const terms=set.split(' ');return terms.includes(a)&&terms.includes(b);});
+        const scoreCandidate=x=>(similar(row.term,x.term)?12:0)+(wordClass(row.term)===wordClass(x.term)?8:0);
+        const sourceKey=`${key} ${row.original}`;
+        const candidates=pool.filter(x=>x.term!==row.term).sort((a,b)=>scoreCandidate(b)-scoreCandidate(a)||a.term.localeCompare(b.term,'zh-Hans'));
+        const picks=[row,...candidates.slice(0,3)];
+        const shift=index%4;
+        const options=picks.slice(shift).concat(picks.slice(0,shift));
+        const answer=options.findIndex(x=>x.term===row.term);
+        const memoryOptions=options.slice((shift+1)%4).concat(options.slice(0,(shift+1)%4));
+        const memoryAnswer=memoryOptions.findIndex(x=>x.term===row.term);
+        const explain=(arr,reason='')=>`${row.term} (${row.pinyin}) — ${arr.map((x,k)=>`${labels[k]} ${x.gloss}`).join('; ')}.${reason?' '+reason:''}`;
+        return [
+          {passage:passageOverrides[sourceKey]||row.passage,ask:'哪一个词语最适合填入空格？',choices:options.map(x=>x.term),answer,explain:explain(options,answerReasons[sourceKey]),row,recall:false},
+          {passage:`上一题的词语：${row.term}`,ask:`“${row.term}”是什么意思？`,choices:memoryOptions.map(x=>x.meaning),answer:memoryAnswer,explain:explain(memoryOptions),row,recall:true}
+        ];
+      });
+    }
+    function menu(){active=-1;game.replaceChildren();game.append(el('h2','','选择一个单元'));const grid=el('div','section-grid');
+      for(let section=0;section<8;section++){
+        const card=el('button','section-card');card.type='button';
+        const saved=localStorage.getItem('h1cl-cloze-section-'+section);
+        card.append(el('strong','',`第 ${section+1} 单元`),el('span','',`25 个新词语 · 50 题${saved?' · '+saved+' / 50 已答对':''}`));
+        card.onclick=()=>{active=section;position=0;score=0;chosen=null;render();};grid.append(card);
+      }game.append(grid);
+    }
+    function render(){if(active<0){menu();return;}const questions=makeQuestions(active);game.replaceChildren();
+      if(position===50){
+        localStorage.setItem('h1cl-cloze-section-'+active,String(score));
+        const end=el('div','end');end.append(el('div','pill',`第 ${active+1} 单元完成`),el('h2','','做得好！'),el('div','big',`${score} / 50`),el('p','',active===7?'你已练习 200 个不同词语。可以从菜单重新练习。':'继续下一单元，或回到菜单选择。'));
+        const action=el('div','actions');const home=el('button','link','返回单元菜单');home.onclick=menu;action.append(home);
+        if(active<7){const next=el('button','primary','下一单元 →');next.onclick=()=>{active++;position=0;score=0;chosen=null;render();};action.append(next);}end.append(action);game.append(end);return;
+      }
+      const q=questions[position];const top=el('div','topline');top.append(el('span','pill',q.recall?'词义回忆':'语境填空'),el('span','',`第 ${active+1} 单元 · 第 ${position+1} / 50 题 · 答对 ${score}`));game.append(top);
+      const bar=el('div','bar');const fill=el('span');fill.style.width=`${(position+1)*2}%`;bar.append(fill);game.append(bar);
+      game.append(el('div','context',q.passage),el('p','source',`材料：${q.row.year} ${q.row.school} · 原题 ${q.row.original}`),el('h2','',q.ask));
+      const list=el('div','choices');q.choices.forEach((choice,i)=>{const btn=el('button','choice');btn.type='button';btn.setAttribute('aria-label',`${labels[i]}，${choice}`);btn.append(el('span','letter',labels[i]),el('span','',choice));if(chosen!==null){btn.disabled=true;if(i===q.answer)btn.classList.add('correct');else if(i===chosen)btn.classList.add('wrong');}btn.onclick=()=>{if(chosen!==null)return;chosen=i;if(i===q.answer)score++;render();};list.append(btn);});game.append(list);
+      if(chosen!==null){const feedback=el('div','feedback'+(chosen===q.answer?'':' bad'));feedback.append(el('strong','',chosen===q.answer?'答对了！':`正确答案：${labels[q.answer]}`),el('p','',q.explain));game.append(feedback);}
+      const actions=el('div','actions');const home=el('button','link','单元菜单');home.onclick=menu;actions.append(home);if(chosen!==null){const next=el('button','primary',position===49?'查看成绩':'下一题 →');next.onclick=()=>{position++;chosen=null;render();window.scrollTo({top:0,behavior:'smooth'});};actions.append(next);}game.append(actions);
+    }
+    document.addEventListener('keydown',event=>{if(event.altKey||event.ctrlKey||event.metaKey)return;if(active>=0&&chosen===null&&'1234'.includes(event.key)&&event.key.length===1)game.querySelectorAll('.choice')[Number(event.key)-1]?.click();else if(active>=0&&chosen!==null&&event.key==='Enter')game.querySelector('.actions .primary')?.click();});
+    menu();
+  </script>
+</body>
+</html>
